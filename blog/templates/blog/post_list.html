@@ -4,14 +4,16 @@
 	</head>
 	
 	<body>
-		<div><h1><a href="#">AL DIGITRON Blog</a></h1></div>
+		<div><h1><a href="/">AL DIGITRON Blog</a></h1></div>
 
-		<div><p>published: 10.01.2016, 12:14</p>
-			<h2><a href="#">In the beginning...</a></h2>
-			<p>We launched anyways, despite the odds against us. The disheartening handwrittings on the multiplied so we repainted the wall. Its has been a worthwhile adventure all the way. We celebrated as we beat the odds, and surpased targets. To our amazement the facts far surpassed our wildest imagination of awesomeness.</p>
+		{% for post in posts %}
+		<div>
+			<p>published: {{ post.published_date }}</p>
+			<h1><a href=""></a>{{ post.title }}</h1>
+
+			<p>{{ post.text|linebreaks }}</p>			
 		</div>
-		<div><p>published:11.012016, 18:20</p>
-			<h2><a href="#">Thrilling adventure</a></h2>
-			<p>So we launched out into the deep. The deep was ready for its own. We had to speed up our learning and rush the scale up as soon as possible. I thought for second as though whispered from behind,'what if I fail?'</p></div>
+
+		{% endfor %}
 	</body>
 </html>
