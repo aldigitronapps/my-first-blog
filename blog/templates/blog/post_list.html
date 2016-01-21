@@ -12,6 +12,7 @@
 
       <div class="caption">
         <h3><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }} <small>{{ post.published_date|timesince }} ago</small></a></h3>
+        <p><b>Author: {{ post.user }}</b></p>
         <p>{{ post.text|linebreaks|truncatechars:300 }}</p>
         <hr/>
         <p><a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-primary" role="button">View</a> </p>
