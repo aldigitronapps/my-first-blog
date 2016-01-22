@@ -29,7 +29,7 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post})
 
 def post_new(request):
-    if not request.user.is_staff or not request.user.is_superuser:
+    if not request.user.is_authenticated():
         raise Http404
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES or None)
@@ -46,7 +46,7 @@ def post_new(request):
     
 
 def post_edit(request, pk):
-    if not request.user.is_staff or not request.user.is_superuser:
+    if not request.user.is_authenticated():
         raise Http404
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -64,7 +64,7 @@ def post_edit(request, pk):
     return render(request, 'blog/post_edit.html', {'form': form})
     
 def post_delete(request, pk):
-    if not request.user.is_staff or not request.user.is_superuser:
+    if not request.user.is_authenticated():
         raise Http404
     post = get_object_or_404(Post, pk=pk)
     post.delete()
