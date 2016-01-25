@@ -21,6 +21,7 @@ class Post(models.Model):
 	height_field = models.IntegerField(default=0)
 	width_field = models.IntegerField(default=0)
 	text = models.TextField()
+	draft = models.BooleanField(default=False)
 	created_date = models.DateTimeField(default=timezone.now)
 	published_date = models.DateTimeField(blank=True, null=True)
 
@@ -47,3 +48,7 @@ def pre_save_post_receiver (sender, instance, *args, **kwargs):
 
 pre_save.connect(pre_save_post_receiver, sender=Post)
 	
+
+
+
+   

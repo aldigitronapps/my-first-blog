@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.utils import timezone
 from .models import Post
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PostForm
 
@@ -10,7 +11,20 @@ from .forms import PostForm
 
 # Create your views here.
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    if request.user.is_authenticated():
+        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    else:
+        posts = Post.objects.filter(draft=False).filter(published_date__lte=timezone.now()).order_by('-published_date')
+    
+    query = request.GET.get("q")
+    if query:
+        posts = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(text__icontains=query) |
+            Q(user__first_name__icontains=query) |
+            Q(user__last_name__icontains=query) 
+            ).distinct()
+
     paginator = Paginator(posts, 5) # Show 25 contacts per page
     page = request.GET.get('page')
     try:
@@ -26,6 +40,9 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    if post.draft:
+        if not request.user.is_authenticated():
+            raise Http404
     return render(request, 'blog/post_detail.html', {'post': post})
 
 def post_new(request):

@@ -27,7 +27,7 @@
 				{% if post.image %}
 				<img src="{{post.image.url}}" class='img-responsive img-rounded ' />
 				{% endif %}
-				<h1>{{ post.title }}</h1>
+				<h1>{{ post.title }}<small>{% if post.draft %} <span style='color:red;'>Draft</span>{% endif %}</small></h1>
 				<p>Author: {{ post.user }}</p>
 
 			<div class="row">
