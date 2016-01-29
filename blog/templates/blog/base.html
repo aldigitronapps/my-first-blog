@@ -9,6 +9,7 @@
 	</head>
 	
 	<body>
+		<div id="maindiv">
 		<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -19,22 +20,59 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 		<div class="page-header">
+			<header>
 			{% if user.is_authenticated %}
-			<a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+			<a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus" id="newgly"></span></a>
 			{% endif %}
 			<h1><a href="/">AL DIGITRON Blog</a></h1>
+			<div id="headimage"><a href="#"><img src="{% static 'css/imgs/myhead.jpg' %}" class="img-responsive"></a></div>
+			<div id="searchpost">
+				<form method='GET' action=''>
+				<input type='text' name='q' placeholder='Search for an article' value='{{ request.GET.q }}'/>
+				<input type='submit' value='Search'/>
+				</form>
+				</div>
+
+         <!--nav bar-->
+		<div class="row" id="access">
+			<div class="col-sm-12">
+            <nav class="navbar navbar-default navbar-static-top navbar-inverse">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="glyphicon glyphicon-arrow-down"></span>
+                          MENU
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/"><b>Home</b></a></li>
+                        </ul> 
+                    </div>
+                </div>
+             </nav>
+             </div> 
+        </div>
+
+			</header>
+			
+
 		</div>
 
-		<div class="content container">
+		<div class="mainposts">
 			<div class="row">
-				<div class"col-md-8">
+				<div class="col-md-8 col-lg-8">
 					{% block content %}
 					{% endblock %}
 				</div>
+				<!--<aside class="col-md-4 col-lg-4"><p>Archives </p></aside>-->
 			</div>
 		</div>
+		<footer><div id="feettext"><b>Proudly Powered by AL DIGITRON</b></div></footer>
+		</div>
 		<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>		
 	</body>
 </html>
 
